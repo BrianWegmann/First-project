@@ -43,7 +43,7 @@ Multiple users are stored in a single JSON file.
 
 ## 🗂️ Project Structure
 
--project_folder/
+- project_folder/
   - main.py # Program entry point and user flow
   - inputs.py # Input validation and user input handling
   - bmi.py # BMI calculation logic
@@ -62,3 +62,4 @@ The aim of this project is:
 - To avoid duplicate code
 
 - To be able to easily change and test all components
+
