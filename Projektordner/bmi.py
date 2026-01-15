@@ -1,15 +1,14 @@
-def berechne_bmi(gewicht, groesse_cm):
-    groesse_m = groesse_cm / 100
-    bmi = gewicht / (groesse_m ** 2)
-    return round(bmi, 1)
+def calculate_bmi(weight, height_cm):
+    height_m = height_cm / 100
+    return round(weight / (height_m ** 2), 2)
 
 
-def bmi_kategorie(bmi):
+def bmi_category(bmi):
     if bmi < 18.5:
-        return "Untergewicht"
+        return "Underweight"
     elif bmi < 25:
-        return "Normalgewicht"
+        return "Normal weight"
     elif bmi < 30:
-        return "Übergewicht"
+        return "Overweight"
     else:
-        return "Adipositas"
+        return "Obesity"

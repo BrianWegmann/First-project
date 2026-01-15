@@ -1,84 +1,87 @@
-from eingaben import *
+from inputs import *
 from bmi import *
-from gerichte import *
-from daten import *
+from meals import *
+from storage import *
 
-def main():
-    print("Willkommen beim Ernährungsprogramm")
 
-    auswahl = eingabe_auswahl(
-        "Neuer oder bestehender Nutzer?",
-        ["neu", "bestehend"]
-    )
+def display_result(data):
+    print("\n--- Personal Summary ---")
+    print(f"Name: {data['name']}")
+    print(f"BMI: {data['bmi']} ({data['bmi_category']})")
 
-    if auswahl == "neu":
-        neuer_nutzer()
+    print("\nRecommended meals:")
+    if data["recommendations"]:
+        for meal in data["recommendations"]:
+            print(f"- {meal}")
     else:
-        bestehender_nutzer()
-
-def ausgabe(daten):
-    print("\n--- Persönliche Auswertung ---")
-    print(f"Name: {daten['name']}")
-    print(f"BMI: {daten['bmi']} ({daten['bmi_kategorie']})")
-
-    print("\nEmpfohlene Gerichte:")
-    if daten["empfehlungen"]:
-        for gericht in daten["empfehlungen"]:
-            print(f"- {gericht}")
-    else:
-        print("Keine passenden Gerichte gefunden.")
+        print("No suitable meals found.")
 
 
-def neuer_nutzer():
+def new_user():
     name = input("Name: ").strip()
 
-    alter = eingabe_int("Alter", 10, 120)
-    groesse = eingabe_float("Größe in cm", 120, 230)
-    gewicht = eingabe_float("Gewicht in kg", 30, 300)
+    age = input_int("Age", 10, 120)
+    height = input_float("Height in cm", 120, 230)
+    weight = input_float("Weight in kg", 30, 300)
 
-    ernaehrung = eingabe_auswahl(
-        "Ernährungsform",
-        ["omnivor", "omnivor_ohne_fisch", "pescetarisch", "vegetarisch", "vegan"]
+    diet = input_choice(
+        "Diet type",
+        ["omnivore", "omnivore_no_fish", "pescatarian", "vegetarian", "vegan"]
     )
 
-    nuesse = eingabe_ja_nein("Darf Nüsse enthalten?")
-    milch = eingabe_ja_nein("Darf Milch enthalten?")
-    gluten = eingabe_ja_nein("Darf Gluten enthalten?")
+    nuts = input_yes_no("May it contain nuts?")
+    milk = input_yes_no("May it contain milk?")
+    gluten = input_yes_no("May it contain foods containing gluten?")
 
-    bmi = berechne_bmi(gewicht, groesse)
-    kategorie = bmi_kategorie(bmi)
+    bmi = calculate_bmi(weight, height)
+    category = bmi_category(bmi)
 
-    empfehlungen = empfehlungen_finden(
-        ernaehrung, nuesse, milch, gluten
+    recommendations = find_recommendations(
+        diet, nuts, milk, gluten
     )
 
-    daten = {
+    user_data = {
         "name": name,
-        "alter": alter,
-        "groesse": groesse,
-        "gewicht": gewicht,
+        "age": age,
+        "height": height,
+        "weight": weight,
         "bmi": bmi,
-        "bmi_kategorie": kategorie,
-        "ernaehrung": ernaehrung,
-        "nuesse": nuesse,
-        "milch": milch,
+        "bmi_category": category,
+        "diet": diet,
+        "nuts": nuts,
+        "milk": milk,
         "gluten": gluten,
-        "empfehlungen": empfehlungen
+        "recommendations": recommendations
     }
 
-    speichere_nutzer(name, daten)
-    ausgabe(daten)
+    save_user(name, user_data)
+    display_result(user_data)
 
 
-def bestehender_nutzer():
+def existing_user():
     name = input("Name: ").strip()
-    daten = lade_nutzer(name)
+    data = load_user(name)
 
-    if daten is None:
-        print("Kein Nutzer gefunden.")
+    if data is None:
+        print("No user found.")
         return
 
-    ausgabe(daten)
+    display_result(data)
+
+
+def main():
+    print("Welcome to the nutrition program")
+
+    choice = input_choice(
+        "New or existing user?",
+        ["new", "existing"]
+    )
+
+    if choice == "new":
+        new_user()
+    else:
+        existing_user()
+
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,4 @@
+from inputs import input_float
+
+def test_input_float_exist():
+    assert callable(input_float)
