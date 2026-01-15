@@ -43,16 +43,15 @@ Multiple users are stored in a single JSON file.
 
 ## 🗂️ Project Structure
 
-project_folder/
-│
-├── main.py # Program entry point and user flow
-├── inputs.py # Input validation and user input handling
-├── bmi.py # BMI calculation logic
-├── meals.py # Meal definitions and filtering logic
-├── storage.py # Saving and loading user data (JSON)
-├── users.json # Stored user data (created automatically)
-├── README(ger).md
-└── README.md
+-project_folder/
+  - main.py # Program entry point and user flow
+  - inputs.py # Input validation and user input handling
+  - bmi.py # BMI calculation logic
+  - meals.py # Meal definitions and filtering logic
+  - storage.py # Saving and loading user data (JSON)
+  - users.json # Stored user data (created automatically)
+  - README(ger).md
+  - README.md
 
 ---
 
@@ -61,4 +60,5 @@ project_folder/
 The aim of this project is:
 - To keep code clear
 - To avoid duplicate code
+
 - To be able to easily change and test all components
